@@ -1,9 +1,11 @@
 import React from 'react'
 
-export default function HomePage() {
+const Filters = () => {
   return (
     <div>
-      <h1>home</h1>
+      
     </div>
   )
 }
+
+export default Filters
