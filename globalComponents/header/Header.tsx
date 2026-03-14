@@ -25,7 +25,6 @@ const Header = () => {
       {/* user info */}
       <div>
         <UserProfile/>
-        <HomePage/>
       </div>
     </div>
   );
