@@ -7,16 +7,27 @@ export type BreadcrumbItem = { label: string; href?: string };
 
 type BreadcrumbsProps = {
   items: BreadcrumbItem[];
+  variant?: "default" | "dark";
 };
 
-export default function Breadcrumbs({ items }: BreadcrumbsProps) {
+export default function Breadcrumbs({
+  items,
+  variant = "default",
+}: BreadcrumbsProps) {
+  const isDark = variant === "dark";
   return (
-    <nav aria-label="Breadcrumb" className="text-sm text-neutral-500">
+    <nav
+      aria-label="Breadcrumb"
+      className={`text-sm ${isDark ? "text-neutral-500" : "text-neutral-500"}`}
+    >
       <ol className="flex flex-wrap items-center gap-1">
         {items.map((item, i) => (
           <li key={`${item.label}-${i}`} className="flex items-center gap-1">
             {i > 0 && (
-              <ChevronRight className="w-4 h-4 text-neutral-400" aria-hidden />
+              <ChevronRight
+                className={`w-4 h-4 ${isDark ? "text-neutral-600" : "text-neutral-400"}`}
+                aria-hidden
+              />
             )}
             {item.href ? (
               <Link
@@ -26,7 +37,11 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
                 {item.label}
               </Link>
             ) : (
-              <span className="font-medium text-neutral-800">{item.label}</span>
+              <span
+                className={`font-medium ${isDark ? "text-neutral-200" : "text-neutral-800"}`}
+              >
+                {item.label}
+              </span>
             )}
           </li>
         ))}

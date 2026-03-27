@@ -4,26 +4,25 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ProductCard, { ProductCardProps } from "./ProductCard";
 
-type ProductCarouselProps = {
+type ProductFeaturesCarouselProps = {
   products: ProductCardProps[];
   className?: string;
 };
 
-export default function ProductCarousel({
+export default function ProductFeaturesCarousel({
   products,
   className = "",
-}: ProductCarouselProps) {
+}: ProductFeaturesCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
   const checkScroll = useCallback(() => {
     const el = scrollRef.current;
     if (!el) return;
     const { scrollLeft, scrollWidth, clientWidth } = el;
-    const overflow = scrollWidth > clientWidth + 2;
-    setCanScrollLeft(overflow && scrollLeft > 2);
-    setCanScrollRight(overflow && scrollLeft < scrollWidth - clientWidth - 2);
+    setCanScrollLeft(scrollLeft > 2);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 2);
   }, []);
 
   useEffect(() => {
@@ -38,7 +37,7 @@ export default function ProductCarousel({
   const scroll = (dir: "left" | "right") => {
     const el = scrollRef.current;
     if (!el) return;
-    const cardWidth = 280 + 16;
+    const cardWidth = 280 + 24;
     const step = Math.min(cardWidth * 2, el.clientWidth * 0.85);
     el.scrollBy({ left: dir === "left" ? -step : step, behavior: "smooth" });
     setTimeout(checkScroll, 350);
@@ -49,20 +48,20 @@ export default function ProductCarousel({
       <div
         ref={scrollRef}
         onScroll={checkScroll}
-        className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide py-2 -mx-1 px-1"
+        className="flex gap-6 sm:gap-8 overflow-x-auto scroll-smooth scrollbar-hide py-1 -mx-1 px-1"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {products.map((product) => (
           <div
             key={product.id}
-            className="flex-shrink-0 w-[260px] sm:w-[280px]"
+            className="flex-shrink-0 w-[240px] sm:w-[260px] md:w-[280px]"
           >
-            <ProductCard {...product} />
+            <ProductCard {...product} minimal />
           </div>
         ))}
       </div>
 
-      <div className="mt-8 flex justify-center gap-3">
+      <div className="mt-10 flex justify-center gap-3">
         <button
           type="button"
           onClick={() => scroll("left")}

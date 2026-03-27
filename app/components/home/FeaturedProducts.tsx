@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import ProductCarousel from "./ProductCarousel";
+import ProductFeaturesCarousel from "./ProductFeaturesCarousel";
 import type { ProductCardProps } from "./ProductCard";
 
 const featuredProducts: ProductCardProps[] = [
@@ -12,6 +12,7 @@ const featuredProducts: ProductCardProps[] = [
     oldPrice: 400,
     price: 350,
     onSale: true,
+    slug: "/shop/item/1",
   },
   {
     id: "2",
@@ -20,22 +21,25 @@ const featuredProducts: ProductCardProps[] = [
     oldPrice: 450,
     price: 380,
     onSale: true,
+    slug: "/shop/item/2",
   },
   {
     id: "3",
-    image: "/images/Quiling.jpg",
+    image: "/images/Crochet.jpg",
     title: "Floral Wool Phone Dock",
     oldPrice: 500,
     price: 399,
     onSale: true,
+    slug: "/shop/item/3",
   },
   {
-    id: "4",
-    image: "/images/Sketch.jpg",
-    title: "Quilling Art Frame",
-    oldPrice: 600,
-    price: 480,
+    id: "6",
+    image: "/images/Quiling.jpg",
+    title: "Tree of Life Quilling Art",
+    oldPrice: 1200,
+    price: 899,
     onSale: true,
+    slug: "/shop/item/6",
   },
 ];
 
@@ -46,36 +50,53 @@ const tabs = [
 ] as const;
 
 export default function FeaturedProducts() {
-  const [activeTab, setActiveTab] = useState<typeof tabs[number]["id"]>("featured");
+  const [activeTab, setActiveTab] = useState<(typeof tabs)[number]["id"]>(
+    "featured"
+  );
+
+  const products =
+    activeTab === "featured"
+      ? featuredProducts
+      : activeTab === "bestseller"
+        ? [...featuredProducts].reverse()
+        : featuredProducts;
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
-      <div className="flex flex-wrap gap-4 border-b border-neutral-200 pb-4 mb-6">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            type="button"
-            onClick={() => setActiveTab(tab.id)}
-            className={`text-sm font-medium transition-colors ${
-              activeTab === tab.id
-                ? "text-neutral-900 border-b-2 border-neutral-900 -mb-[17px] pb-4"
-                : "text-neutral-400 hover:text-neutral-600"
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
+    <section className="bg-white py-12 sm:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <nav
+          className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 md:gap-16"
+          aria-label="Product collections"
+        >
+          {tabs.map((tab) => {
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveTab(tab.id)}
+                className={`relative pb-1 text-sm sm:text-base transition-colors ${
+                  isActive
+                    ? "font-bold text-black"
+                    : "font-medium text-neutral-400 hover:text-neutral-500"
+                }`}
+              >
+                {tab.label}
+                {isActive && (
+                  <span
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-black"
+                    aria-hidden
+                  />
+                )}
+              </button>
+            );
+          })}
+        </nav>
 
-      <ProductCarousel
-        products={
-          activeTab === "featured"
-            ? featuredProducts
-            : activeTab === "bestseller"
-              ? [...featuredProducts].reverse()
-              : featuredProducts
-        }
-      />
+        <div className="mt-10 sm:mt-12">
+          <ProductFeaturesCarousel products={products} />
+        </div>
+      </div>
     </section>
   );
 }

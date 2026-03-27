@@ -13,6 +13,8 @@ export type ProductReview = {
   rating: number;
   comment: string;
   ago: string;
+  /** Optional photo from “Write a review” (data URL or path) */
+  imageUrl?: string;
 };
 
 export type ProductCoupon = { id: string; text: string };
@@ -30,8 +32,8 @@ export type FullProductDetail = ShopProduct & {
 
 const CATEGORY_IMAGE_POOL: Record<ShopCategory, string[]> = {
   woolen: ["/images/imgae1.jpg", "/images/Crochet.jpg", "/images/guide.png"],
-  quilling: ["/images/Quiling.jpg", "/images/imgae1.jpg", "/images/Crochet.jpg"],
-  sketch: ["/images/Sketch.jpg", "/images/Quiling.jpg", "/images/imgae1.jpg"],
+  quilling: ["/images/Quiling.jpg"],
+  sketch: ["/images/Sketch.jpg"],
 };
 
 const DEFAULT_COUPONS: ProductCoupon[] = [

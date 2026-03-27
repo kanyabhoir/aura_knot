@@ -107,10 +107,10 @@ export default function ProductDetailClient({
   ];
 
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <div className="min-h-screen bg-white">
       <Toaster position="top-center" toastOptions={{ duration: 2800 }} />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
         <Breadcrumbs items={breadcrumbItems} />
 
         <div className="mt-6 grid gap-10 lg:grid-cols-2 lg:gap-12 lg:items-start">

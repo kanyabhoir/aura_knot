@@ -1,21 +1,18 @@
 "use client";
 
-import CategoryCards from "./components/home/CategoryCards";
-import FeatureBar from "./components/home/FeatureBar";
-import FeaturedProducts from "./components/home/FeaturedProducts";
-import HeroSlider from "./components/home/HeroSlider";
-import Newsletter from "./components/home/Newsletter";
-import SuggestionSection from "./components/home/SuggestionSection";
+import PublicHome from "./components/home/PublicHome";
+import { useAuth } from "@/lib/auth/AuthContext";
 
 export default function HomePage() {
-  return (
-    <main className="min-h-screen">
-      <HeroSlider />
-      <FeatureBar />
-      <CategoryCards />
-      <FeaturedProducts />
-      <SuggestionSection />
-      <Newsletter />
-    </main>
-  );
+  const { hydrated } = useAuth();
+
+  if (!hydrated) {
+    return (
+      <main className="min-h-screen bg-white flex items-center justify-center">
+        <p className="text-sm text-neutral-400">Loading…</p>
+      </main>
+    );
+  }
+
+  return <PublicHome />;
 }

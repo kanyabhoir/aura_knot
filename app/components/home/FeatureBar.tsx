@@ -11,7 +11,7 @@ const features = [
   {
     icon: Truck,
     title: "PAN India Delivery",
-    desc: "For all orders over ₹120",
+    desc: "For orders over ₹400",
   },
   {
     icon: Tag,

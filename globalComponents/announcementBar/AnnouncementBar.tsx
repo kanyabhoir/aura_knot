@@ -10,9 +10,23 @@ const socialLinks = [
   { icon: Twitter, href: "#", label: "X" },
 ];
 
-export default function AnnouncementBar() {
+type AnnouncementBarProps = {
+  variant?: "light" | "dark";
+};
+
+export default function AnnouncementBar({
+  variant = "light",
+}: AnnouncementBarProps) {
+  const isDark = variant === "dark";
+
   return (
-    <div className="bg-neutral-200 text-neutral-800 text-sm">
+    <div
+      className={`text-sm ${
+        isDark
+          ? "bg-black text-neutral-300 border-b border-white/10"
+          : "bg-neutral-200 text-neutral-800"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-wrap items-center justify-between gap-2 py-2">
         <div className="flex items-center gap-3">
           {socialLinks.map(({ icon: Icon, href, label }) => (
@@ -20,20 +34,37 @@ export default function AnnouncementBar() {
               key={label}
               href={href}
               aria-label={label}
-              className="text-neutral-600 hover:text-neutral-900 transition-colors"
+              className={
+                isDark
+                  ? "text-neutral-400 hover:text-white transition-colors"
+                  : "text-neutral-600 hover:text-neutral-900 transition-colors"
+              }
             >
               <Icon className="w-4 h-4" />
             </Link>
           ))}
         </div>
-        <p className="font-medium text-center flex-1 min-w-[140px]">
-          Summer sale discount 50% off
+        <p
+          className={`font-medium text-center flex-1 min-w-[140px] ${
+            isDark ? "text-red-400" : ""
+          }`}
+        >
+          Summer sale discount: 50% off
         </p>
-        <div className="flex items-center gap-2 text-neutral-600">
+        <div
+          className={`flex items-center gap-2 ${
+            isDark ? "text-neutral-400" : "text-neutral-600"
+          }`}
+        >
           <MapPin className="w-4 h-4 shrink-0" />
           <span>Delivering To</span>
-          <a href="tel:07208508263" className="font-medium hover:underline">
-            072085 08263
+          <a
+            href="tel:07208873272"
+            className={`font-medium hover:underline ${
+              isDark ? "text-neutral-200" : ""
+            }`}
+          >
+            072088 73272
           </a>
         </div>
       </div>
