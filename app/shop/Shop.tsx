@@ -1,11 +1,5 @@
-import React from 'react'
+import ShopClient from "./ShopClient";
 
-const Shop = () => {
-  return (
-    <div>
-      <h1>SHOP </h1>
-    </div>
-  )
+export default function Shop() {
+  return <ShopClient initialCategory="all" />;
 }
-
-export default Shop

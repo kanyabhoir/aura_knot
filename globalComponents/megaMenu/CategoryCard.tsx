@@ -9,6 +9,7 @@ type CategoryCardProps = {
   image: string;
   imageAlt: string;
   title: string;
+  onNavigate?: () => void;
 };
 
 export default function CategoryCard({
@@ -16,10 +17,12 @@ export default function CategoryCard({
   image,
   imageAlt,
   title,
+  onNavigate,
 }: CategoryCardProps) {
   return (
     <Link
       href={href}
+      onClick={() => onNavigate?.()}
       className="group block rounded-2xl overflow-hidden bg-white shadow-md transition-transform duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#C8F04C] focus:ring-offset-2"
     >
       <div className="relative aspect-[4/5] min-h-[200px] overflow-hidden">

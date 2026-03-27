@@ -1,5 +1,6 @@
 "use client";
 
+import { useCart } from "@/lib/cart/CartContext";
 import { menus } from "@/utils/Menus";
 import { ChevronDown, Heart, Search, ShoppingBag, User } from "lucide-react";
 import Link from "next/link";
@@ -13,7 +14,7 @@ export default function Header() {
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const shopTriggerRef = useRef<HTMLDivElement>(null);
   const megaMenuCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const cartCount = 0;
+  const { itemCount: cartCount } = useCart();
 
   const clearCloseTimeout = () => {
     if (megaMenuCloseTimeoutRef.current) {
