@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 import CategoryCard from "./CategoryCard";
 
@@ -72,8 +73,18 @@ export default function MegaMenu({ isOpen, onClose, anchorRef }: MegaMenuProps) 
               image={cat.image}
               imageAlt={cat.imageAlt}
               title={cat.title}
+              onNavigate={onClose}
             />
           ))}
+        </div>
+        <div className="mt-4 text-center">
+          <Link
+            href="/shop"
+            onClick={onClose}
+            className="inline-flex text-sm font-semibold text-neutral-900 underline-offset-4 hover:underline"
+          >
+            View all products
+          </Link>
         </div>
       </div>
     </div>
