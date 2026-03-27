@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/globalComponents/header/Header";
 import Footer from "@/globalComponents/footer/Footer";
 import SplashScreen from "@/globalComponents/splash/SplashScreen";
+import { Providers } from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,10 +31,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SplashScreen />
-        <Header />
-        {children}
-        <Footer />
+        <Providers>
+          <SplashScreen />
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
